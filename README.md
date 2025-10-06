@@ -82,3 +82,18 @@ end
 
 > [!TIP]
 > Example: If REF is 10 MHz (100 ns period), output CLK will try to be 80 MHz (period = 12.5 ns).
+
+🔁 Summary of Behavior
+
+- Simulates a VCO/PLL that: Adjusts its frequency to track the reference clock.
+- Specifically, it multiplies the frequency of the REF clock by 8.
+- Uses simulation time ($realtime) to measure and adjust periods.
+- The output clock is toggled at a rate set by this adjusted period.
+- VCO can be turned off with ENb_VCO.
+
+⚠️ Limitations and Notes
+
+- Behavioral only: This is not synthesizable; it's for simulation modeling.
+- VCO_IN and ENb_CP are not used — likely placeholders for future features.
+- Simple model — doesn't include feedback loop, PFD, charge pump, or loop filter logic of a full PLL.
+- Can be extended to make more accurate behavioral PLLs for verification.
