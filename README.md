@@ -101,11 +101,12 @@ end
 ✅ Liberty Library File for `avsdpll.lib` (VSDBabySoC/src/lib/avsdpll.lib)
  ## What this is for:
 - The .lib file is used by static timing analysis (STA) tools to understand the timing, power, and loading characteristics of your module.
-- It defines:
- -- Units (time, voltage, capacitance, etc.).
- -- Pin directions and electrical properties.
- -- Transition and capacitance limits for input signals.
+ ### It defines:
+- Units (time, voltage, capacitance, etc.).
+- Pin directions and electrical properties.
+- Transition and capacitance limits for input signals.
 - A Liberty (.lib) format description, used to characterize a standard cell or module for ASIC or FPGA design tools
 - especially for timing and power analysis. It’s describing the electrical and timing characteristics of your avsdpll module.
-
+- Here, avsdpll has basic characterization: capacitance 0.001 pF on pins, max slew transition 2.5 ns.
+- GND and VDD are included as input pins — typical for power/ground connections.
 
