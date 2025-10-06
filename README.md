@@ -29,3 +29,39 @@ real period, lastedge, refpd;
 - **period**: Current period of the output `CLK` signal (in nanoseconds).
 - **lastedge**: Timestamp of the last rising edge on `REF`.
 - **refpd**: Reference clock period (time between consecutive rising edges on `REF`).
+
+```verilog
+initial begin
+   lastedge = 0.0;
+   period = 25.0; // 25ns period = 40MHz
+   CLK <= 0;
+end
+```
+- Initializes the `clock period` to `25 ns` (→ `40 MHz` output frequency).
+- Sets initial values for lastedge and `CLK`.
+
+✅ Output Clock Generation (always @(CLK or ENb_VCO))
+
+```verilog
+always @(CLK or ENb_VCO) begin
+   if (ENb_VCO == 1'b1) begin
+      #(period / 2.0);
+      CLK <= (CLK === 1'b0);
+   end
+   else if (ENb_VCO == 1'b0) begin
+      CLK <= 1'b0;
+   end 
+   else begin
+      CLK <= 1'bx;
+   end
+end
+```
+
+- If `ENb_VCO == 1` (VCO enabled), then the output CLK toggles every period/2.
+- So the full period of CLK is period.
+- This generates a clock of frequency: f = 1 / period.
+  
+- If `ENb_VCO == 0`, the clock is `forced low` (off).
+  
+- If ENb_VCO is unknown (x), output goes to x.
+**Note**: This is a behavioral clock generation style often used in simulations. *It wouldn't synthesize into hardware.*
