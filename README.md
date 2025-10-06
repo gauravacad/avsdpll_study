@@ -57,11 +57,28 @@ always @(CLK or ENb_VCO) begin
 end
 ```
 
-- If `ENb_VCO == 1` (VCO enabled), then the output CLK toggles every period/2.
-- So the full period of CLK is period.
+- If `ENb_VCO == 1` (VCO enabled), then the output CLK toggles every period/2. So the full period of CLK is period (`clock period` to `25 ns) as initialise earlier
 - This generates a clock of frequency: f = 1 / period.
   
 - If `ENb_VCO == 0`, the clock is `forced low` (off).
   
 - If ENb_VCO is unknown (x), output goes to x.
 **Note**: This is a behavioral clock generation style often used in simulations. *It wouldn't synthesize into hardware.*
+
+✅ Period Adjustment (always @(posedge REF))
+```
+always @(posedge REF) begin
+   if (lastedge > 0.0) begin
+      refpd = $realtime - lastedge;
+      period =  (refpd / 8.0);
+   end
+   lastedge = $realtime;
+end
+```
+- Every rising edge of the REF clock:
+- It measures the time since the last rising edge (refpd).
+- Then, it sets the VCO clock period to 1/8th of the reference period.
+- In other words, it tries to make the output frequency = 8 × REF frequency.
+
+> [!TIP:Example:]
+- If REF is 10 MHz (100 ns period), output CLK will try to be 80 MHz (period = 12.5 ns).
