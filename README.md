@@ -80,5 +80,5 @@ end
 - Then, it sets the VCO clock period to 1/8th of the reference period.
 - In other words, it tries to make the output frequency = 8 × REF frequency.
 
-> [! TIP]
-- Example: If REF is 10 MHz (100 ns period), output CLK will try to be 80 MHz (period = 12.5 ns).
+> [!TIP]
+> Example: If REF is 10 MHz (100 ns period), output CLK will try to be 80 MHz (period = 12.5 ns).
