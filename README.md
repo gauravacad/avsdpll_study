@@ -97,3 +97,15 @@ end
 - VCO_IN and ENb_CP are not used — likely placeholders for future features.
 - Simple model — doesn't include feedback loop, PFD, charge pump, or loop filter logic of a full PLL.
 - Can be extended to make more accurate behavioral PLLs for verification.
+
+✅ Liberty Library File for `avsdpll.lib` (VSDBabySoC/src/lib/avsdpll.lib)
+ ## What this is for:
+- The .lib file is used by static timing analysis (STA) tools to understand the timing, power, and loading characteristics of your module.
+- It defines:
+ - Units (time, voltage, capacitance, etc.).
+ - Pin directions and electrical properties.
+ - Transition and capacitance limits for input signals.
+- A Liberty (.lib) format description, used to characterize a standard cell or module for ASIC or FPGA design tools
+- especially for timing and power analysis. It’s describing the electrical and timing characteristics of your avsdpll module.
+
+
